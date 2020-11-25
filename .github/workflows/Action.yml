@@ -2,7 +2,8 @@ name: Auto Check-in
 
 on:
   schedule:
-    - cron: '10 6 * * *'
+    # 16:15(UTC+8)
+    - cron: '15 8 * * *'
 
 jobs:
 
@@ -20,6 +21,7 @@ jobs:
 
   game:
     runs-on: ubuntu-latest
+    container: curlimages/curl:latest
     steps:
       - name: game check in
         env:
