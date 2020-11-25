@@ -3,7 +3,7 @@ name: Auto Check-in
 on:
   schedule:
     # 16:15(UTC+8)
-    - cron: '15 8 * * *'
+    - cron: '15 16 * * *'
 
 jobs:
 
