@@ -1,0 +1,33 @@
+name: Auto Check-in
+
+on:
+  schedule:
+    - cron: '10 6 * * *'
+
+jobs:
+
+  airport:
+    runs-on: ubuntu-latest
+    container: autorip/python-slim:requests
+    steps:
+      - uses: actions/checkout@v2
+      - name: airport check in
+        env:
+          airport_host: ${{ secrets.AIRPORT_HOST }}
+          airport_account: ${{ secrets.AIRPORT_ACCOUNT }}
+          airport_account_pwd: ${{ secrets.AIRPORT_ACCOUNT_PWD }}
+        run: python main.py $airport_host $airport_account $airport_account_pwd
+
+  game:
+    runs-on: ubuntu-latest
+    steps:
+      - name: game check in
+        env:
+          game_host: ${{ secrets.GAME_HOST }}
+          game_id: ${{ secrets.GAME_ID }}
+        run: |
+          curl '$game_host/portal/api/checkIn' \
+            -H 'X-Requested-With: XMLHttpRequest' \
+            -H 'Content-Type: application/json; charset=UTF-8' \
+            -H 'Referer: $game_host/' \
+            --data-binary '{"email":"$game_id","code":""}'
