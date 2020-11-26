@@ -17,7 +17,7 @@ jobs:
           airport_host: ${{ secrets.AIRPORT_HOST }}
           airport_account: ${{ secrets.AIRPORT_ACCOUNT }}
           airport_account_pwd: ${{ secrets.AIRPORT_ACCOUNT_PWD }}
-        run: python main.py $airport_host $airport_account $airport_account_pwd
+        run: python airport.py $airport_host $airport_account $airport_account_pwd
 
   game:
     runs-on: ubuntu-latest
