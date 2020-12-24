@@ -19,17 +19,24 @@ jobs:
           airport_account_pwd: ${{ secrets.AIRPORT_ACCOUNT_PWD }}
         run: python airport.py $airport_host $airport_account $airport_account_pwd
 
-#game:
-#    runs-on: ubuntu-latest
-#    container: curlimages/curl:latest
-#    steps:
-#      - name: game check in
-#        env:
-#          game_host: ${{ secrets.GAME_HOST }}
-#          game_id: ${{ secrets.GAME_ID }}
-#        run: |
-#          curl '$game_host/portal/api/checkIn' \
-#            -H 'X-Requested-With: XMLHttpRequest' \
-#            -H 'Content-Type: application/json; charset=UTF-8' \
-#            -H 'Referer: $game_host/' \
-#            --data-binary '{"email":"$game_id","code":""}'
+  game1:
+    runs-on: ubuntu-latest
+    container: autorip/python-slim:requests
+    steps:
+      - uses: actions/checkout@v2
+      - name: game check in
+        env:
+          game_host: ${{ secrets.GAME_HOST }}
+          game_id: ${{ secrets.GAME_ID }}
+        run: python game.py $game_host $game_id
+
+  game2:
+    runs-on: ubuntu-latest
+    container: autorip/python-slim:requests
+    steps:
+      - uses: actions/checkout@v2
+      - name: game check in
+        env:
+          game_host: ${{ secrets.GAME_HOST }}
+          game_id_2: ${{ secrets.GAME_ID_2 }}
+        run: python game.py $game_host $game_id_2
